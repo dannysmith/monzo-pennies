@@ -1,0 +1,31 @@
+{
+  "name": "Monzo Pennies",
+  "description": "",
+  "repository": "https://github.com/dannysmith/monzo-pennies",
+  "keywords": ["monzo", "sinatra", "ruby"],
+  "scripts": {
+    "postdeploy": "bundle exec create_webhooks"
+  },
+  "env": {
+    "MONZOPENNIES_WEBHOOK_AUTH_TOKEN": {
+      "description": "A secret key for verifying the identity of calling webhooks.",
+      "generator": "secret"
+    },
+    "MONZOPENNIES_SAVINGS_POT_NAME": {
+      "description": "The name of your Savings pot on Monzo.",
+    },
+    "MONZOPENNIES_ACCOUNT_ID": {
+      "description": "Your Monzo account ID.",
+    },
+    "MONZOPENNIES_BASE_URL": {
+      "description": "The URL of your App on Heroku.",
+    },
+    "MONZO_ACCESS_TOKEN": {
+      "description": "Your Monzo API access token.",
+    },
+  },
+  "addons": [
+    {"plan": "heroku-postgresql"},
+    {"plan": "heroku-scheduler"},
+  ],
+}

@@ -4,8 +4,6 @@ require 'dotenv'
 require 'money'
 require './models/transaction'
 
-require 'pry'
-
 module MonzoPennies
   PotNotFoundError = Class.new(StandardError)
 
@@ -26,7 +24,6 @@ module MonzoPennies
       private
 
       def move_to_savings_pot(amount)
-        binding.pry
         pot = Monzo::Pot.all.select{|p| p.name == pot_name}.first
         raise PotNotFoundError, "Pot `#{pot_name}` not found on Monzo" unless pot
 

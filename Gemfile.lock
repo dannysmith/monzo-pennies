@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/dannysmith/monzo.git
+  revision: 26c23d408a31da50b8fcf34753def60a414e788f
+  specs:
+    monzo (0.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -29,7 +35,6 @@ GEM
     minitest (5.11.3)
     money (6.10.1)
       i18n (>= 0.6.4, < 1.0)
-    monzo (0.2.0)
     multi_xml (0.6.0)
     mustermann (1.0.1)
     parallel (1.12.1)
@@ -94,7 +99,7 @@ DEPENDENCIES
   dotenv-heroku
   httparty
   money
-  monzo
+  monzo!
   pg
   pry
   pry-doc

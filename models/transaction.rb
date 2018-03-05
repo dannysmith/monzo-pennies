@@ -8,4 +8,7 @@ class Transaction < ActiveRecord::Base
   validates :monzo_id, presence: true, uniqueness: true
   validates :amount, presence: true
   validates :monzo_created, presence: true
+
+  # Scopes
+  scope :rounduppable, -> { open.where('amount < ?', 0) }
 end

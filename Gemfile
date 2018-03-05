@@ -15,7 +15,7 @@ gem 'sinatra'
 # Libs
 gem 'httparty'
 gem 'money'
-gem 'monzo'
+gem 'monzo', git: 'https://github.com/dannysmith/monzo.git'
 
 # Database
 gem 'pg'

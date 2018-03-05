@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'monzo'
 require 'dotenv'
 require 'money'
@@ -17,18 +18,21 @@ module MonzoPennies
           notify("Saved #{money(amount)} in roundups! 💸")
           close_all_transactions
         else
-          notify("Failed to Save your roundups 🤔")
+          notify('Failed to Save your roundups 🤔')
         end
       end
 
       private
 
       def move_to_savings_pot(amount)
-        pot = Monzo::Pot.all.select{|p| p.name == pot_name}.first
+        pot = Monzo::Pot.all.select { |p| p.name == pot_name }.first
         raise PotNotFoundError, "Pot `#{pot_name}` not found on Monzo" unless pot
 
-        # TODO: Move amount to savings pot
-        return true
+        pot.deposit!(amount, account_id)
+        true
+      rescue Monzo::MonzoAPIError => e
+        puts "[MonzoAPIError] #{e.message}"
+        false
       end
 
       def notify(message)
@@ -41,7 +45,7 @@ module MonzoPennies
       end
 
       def amount_to_move
-        Transaction.open.map{|tx| ((tx.amount / 100) * 100) + 100 - tx.amount}.sum
+        Transaction.rounduppable.map { |tx| (((tx.amount * -1) / 100) * 100) + 100 - (tx.amount * -1) }.sum
       end
 
       def pot_name

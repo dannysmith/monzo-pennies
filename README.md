@@ -1,5 +1,15 @@
 # Monzo Pennies
 
+Monzo's new roundup thing is very cool, but it moves money into your "Coin Jar" imediately after every transaction. I wanted to spend as normal, and then have the roundup calculated and moved into a pot every evening. Hence this little project. It's mainly meant for personal consumption, but feel free to use it. [WTFPL](https://en.wikipedia.org/wiki/WTFPL) applies.
+
+![](http://c.danny.is/pzlB/image_uploaded_from_ios.jpg)
+
+#### Things to be aware of
+
+This stores your transactions in a Postgres database on heroku, though it only stores the `tx_id`, `created`, `description`, `amount` and `currency`.
+
+> 📝 If you don't like the idea of your transactions living there, feel free to clear out the old ones by running `Transaction.where(status: 1).destroy!` or similar.
+
 ### To Deploy
 
 1. Create a pot in Monzo for your roundups (mine's called "Savings").
@@ -9,13 +19,15 @@
 ```shell
 heroku create
 git push heroku master
+
 heroku addons:create heroku-postgresql:hobby-dev
 heroku addons:create scheduler:standard
+
 heroku run rake db:migrate
 heroku config:set MONZOPENNIES_BASE_URL=$(heroku apps:info -s  | grep web_url | cut -d= -f2)
 ```
 
-Now the following environment variables on Heroku:
+Now go set the other environment variabled required:
 
 ```shell
 heroku config:set MONZOPENNIES_SAVINGS_POT_NAME=Savings # Must match the name in Monzo
@@ -24,7 +36,7 @@ heroku config:set MONZOPENNIES_WEBHOOK_AUTH_TOKEN=XXX # Set this to some random 
 heroku config:set MONZO_ACCESS_TOKEN=XXX # Get this from the API Playground
 ```
 
-Now run the rake task to create the webhook:
+Run this rake task to create the webhook:
 
 ```shell
 heroku ps:restart
@@ -46,5 +58,5 @@ rake save_pennies
 ```shell
 brew services start postgres
 bundle install
-rackup config.ru
+rackup config.ru --host 0.0.0.0
 ```

@@ -2,7 +2,7 @@
 
 Monzo's new roundup thing is very cool, but it moves money into your "Coin Jar" imediately after every transaction. I wanted to spend as normal, and then have the roundup calculated and moved into a pot every evening. Hence this little project. It's mainly meant for personal consumption, but feel free to use it. [WTFPL](https://en.wikipedia.org/wiki/WTFPL) applies.
 
-![](http://c.danny.is/pzlB/image_uploaded_from_ios.jpg)
+![](http://c.danny.is/pzhZ/image_uploaded_from_ios.jpg)
 
 #### Things to be aware of
 
